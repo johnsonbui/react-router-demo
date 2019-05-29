@@ -6,11 +6,10 @@ function App() {
     <Router>
       <div>
         <Header />
-
         <Route exact path="/" component={Home} />
         <Route path="/about" component={About} />
         <Route path="/projects" component={Projects} />
-        <Route path="/topics" component={Topics} />
+        <Route path="/journeys" component={Journeys} />
       </div>
     </Router>
   );
@@ -24,83 +23,40 @@ function About() {
   return <h2>About</h2>;
 }
 
+function Project({ match }) {
+  return <h3>{match.params.id}</h3>;
+}
+
 function Projects({ match }) {
   return (
     <div>
       <h2>Projects</h2>
       <ul>
         <li>
-          <Link to={`${match.url}/Keyboard`}>Keyboard</Link>
+          <Link to={`${match.url}/keyboard`}>Keyboard</Link>
         </li>
         <li>
-          <Link to={`${match.url}/RecipeBook`}>Recipe Book</Link>
+          <Link to={`${match.url}/recipe-book`}>Recipe Book</Link>
         </li>
       </ul>
-      <h2>{match.path}</h2>
-      <Route path={`${match.path}/:id`} component={match.path} />
+
+      <Route path={`${match.path}/:id`} component={Project} />
       <Route
         exact
-        path={match.path}
-        render={() => <h3>Please select a topic.</h3>}
+        path={"/projects/keyboard"}
+        render={() => <h3>Select a keyboard to view.</h3>}
+      />
+      <Route
+        exact
+        path={"/projects/recipe-book"}
+        render={() => <h3>Select a recipe to view.</h3>}
       />
     </div>
   );
 }
 
-function ProjectsList({ match }) {
-  return (
-    <div>
-      <ul>
-        <li>
-          <Link to={`${match.url}/Keyboard`}>Keyboard</Link>
-        </li>
-        <li>
-          <Link to={`${match.url}/RecipeBook`}>Recipe Book</Link>
-        </li>
-      </ul>
-      <h2>{match.path}</h2>
-      <Route path={`${match.path}/:id`} component={match.path} />
-      <Route
-        exact
-        path={match.path}
-        render={() => <h3>Please select a topic.</h3>}
-      />
-    </div>
-  );
-}
-
-function Keyboard({ match }) {
-  return (
-    <h2>Keyboard</h2>
-  );
-}
-
-function Topic({ match }) {
-  return <h3>Requested Param: {match.params.id}</h3>;
-}
-
-function Topics({ match }) {
-  return (
-    <div>
-      <h2>Topics</h2>
-
-      <ul>
-        <li>
-          <Link to={`${match.url}/components`}>Components</Link>
-        </li>
-        <li>
-          <Link to={`${match.url}/props-v-state`}>Props v. State</Link>
-        </li>
-      </ul>
-
-      <Route path={`${match.path}/:id`} component={Topic} />
-      <Route
-        exact
-        path={match.path}
-        render={() => <h3>Please select a topic.</h3>}
-      />
-    </div>
-  );
+function Journeys() {
+  return <h2>Journeys</h2>;
 }
 
 function Header() {
@@ -116,7 +72,7 @@ function Header() {
         <Link to="/projects">Projects</Link>
       </li>
       <li>
-        <Link to="/topics">Topics</Link>
+        <Link to="/journeys">Journeys</Link>
       </li>
     </ul>
   );
